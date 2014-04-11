@@ -11,7 +11,10 @@ to use it, modify it and what not.
     PROJECT_NAME=your_project_name
     mkdir $PROJECT_NAME
     cd $PROJECT_NAME
-    ...
+    virtualenv hostenv
+    source hostenv/bin/activate
+    pip install django
+    django-admin.py startproject --template ../vagrant-heroku-django-template --name=Vagrantfile $PROJECT_NAME .
 
 ## Inspiration
 
