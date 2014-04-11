@@ -53,6 +53,11 @@ if [[ ! -d  $VIRTUALENV_DIR ]] ; then
 fi
 su - vagrant -c "source $VIRTUALENV_DIR/bin/activate && pip install -r $PROJECT_DIR/requirements.txt"
 
+# Heroku
+if ! command -v heroku ; then
+    wget -qO- https://toolbelt.heroku.com/install-ubuntu.sh | sh
+fi
+
 if ! grep -Fxq "workon $PROJECT_NAME" /home/vagrant/.bashrc
 then
     echo "workon $PROJECT_NAME" >> /home/vagrant/.bashrc

@@ -14,7 +14,7 @@ to use it, modify it and what not.
     virtualenv hostenv
     source hostenv/bin/activate
     pip install django
-    django-admin.py startproject --template ../vagrant-heroku-django-template --name=Vagrantfile $PROJECT_NAME .
+    django-admin.py startproject --template ../vagrant-heroku-django-template --name=Vagrantfile --name=Procfile $PROJECT_NAME .
 
 ## Inspiration
 
