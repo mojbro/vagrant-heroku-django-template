@@ -6,22 +6,35 @@ VIRTUALENVS_HOME=/home/vagrant/.virtualenvs
 VIRTUALENV_DIR=$VIRTUALENVS_HOME/$PROJECT_NAME
 PROJECT_DIR=/home/vagrant/$PROJECT_NAME
 PACKAGES="build-essential python python-dev python-setuptools
-	python-virtualenv python-pip libjpeg-dev libtiff-dev zlib1g-dev
-	virtualenvwrapper vim-nox
-	libfreetype6-dev liblcms2-dev libpq-dev git"
+    python-virtualenv python-pip libjpeg-dev libtiff-dev zlib1g-dev
+    python-software-properties virtualenvwrapper
+    libfreetype6-dev liblcms2-dev libpq-dev git vim-nox"
 PGSQL_VERSION=9.1
 
 apt-get update -y
 
 # Install essential packages from Apt
-apt-get install -y $PACKAGES
+apt-get -y install $PACKAGES
+
+# Set project name in home directory
+if [[ ! -f  /home/vagrant/.project_name ]] ; then
+    echo "$PROJECT_NAME" > /home/vagrant/.project_name
+fi
+
+# .bashrc
+BASHRC_LINE="source /vagrant/vagrant/etc/bashrc.sh"
+if ! grep -Fxq "$BASHRC_LINE" /home/vagrant/.bashrc
+then
+    echo "$BASHRC_LINE" >> /home/vagrant/.bashrc
+fi
+
 
 # Postgresql
 if ! command -v psql; then
     echo should install pgsql
     apt-get install -y postgresql-9.1
     # Additional postgresql setup goes here...
-    #cp $PROJECT_DIR/etc/install/pg_hba.conf /etc/postgresql/$PGSQL_VERSION/main/
+    #cp $PROJECT_DIR/vagrant/etc/install/pg_hba.conf /etc/postgresql/$PGSQL_VERSION/main/
     #/etc/init.d/postgresql reload
 fi
 
@@ -56,9 +69,4 @@ su - vagrant -c "source $VIRTUALENV_DIR/bin/activate && pip install -r $PROJECT_
 # Heroku
 if ! command -v heroku ; then
     wget -qO- https://toolbelt.heroku.com/install-ubuntu.sh | sh
-fi
-
-if ! grep -Fxq "workon $PROJECT_NAME" /home/vagrant/.bashrc
-then
-    echo "workon $PROJECT_NAME" >> /home/vagrant/.bashrc
 fi
