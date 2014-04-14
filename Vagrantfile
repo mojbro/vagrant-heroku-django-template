@@ -14,7 +14,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   config.vm.synced_folder ".", "/home/vagrant/{{ project_name }}"
 
-  config.vm.provision "shell", path: "etc/provision.sh", args: "{{ project_name }}"
+  config.vm.provision "shell", path: "vagrant/etc/provision.sh", args: "{{ project_name }}"
 
   # Create a public network, which generally matched to bridged network.
   # Bridged networks make the machine appear as another physical device on
