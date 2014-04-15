@@ -8,15 +8,31 @@ to use it, modify it and what not.
 
 ## How to use
 
-    PROJECT_NAME=your_project_name
-    mkdir $PROJECT_NAME
-    cd $PROJECT_NAME
-    virtualenv hostenv
-    source hostenv/bin/activate
-    pip install django
-    django-admin.py startproject --template ../vagrant-heroku-django-template --name=Vagrantfile --name=Procfile $PROJECT_NAME .
+If you want to create a Django project named `myproject` with a Vagrant
+development environment, just do the following (you'll need `curl` and
+[Vagrant](http://www.vagrantup.com/)):
 
-## Inspiration
+    host$ curl -Ok https://raw.github.com/mojbro/vagrant-heroku-django-template/master/vagrant/create-project.sh
+    host$ bash ./create-project.sh myproject
+    host$ cd myproject
+    <some output>
+    host$ vagrant up
+    <lots of output, will take a while>
 
-This project is inspired by [vagrant-django-template](https://github.com/torchbox/vagrant-django-template),
-but I wanted to make a custom one (that supports Django 1.6 to begin with).
+If everything worked, you should at this point have a working Vagrant environment with
+a blank Django project called `myproject`.
+
+### SSH in to the development environment
+
+In the project
+
+    host$ vagrant ssh
+
+### Start the Django development server
+
+Type:
+
+    vagrant$ runserver
+
+`runserver` is an alias for `cd myproject;python manage.py runserver 0.0.0.0:8080`
+which you can do as well, of course.
