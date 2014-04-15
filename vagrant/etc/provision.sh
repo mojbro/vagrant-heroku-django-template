@@ -64,9 +64,11 @@ fi
 if [[ ! -d  $VIRTUALENV_DIR ]] ; then
     su - vagrant -c "mkdir -p $VIRTUALENVS_HOME && virtualenv $VIRTUALENV_DIR"
 fi
+echo "pip install requirements.txt"
 su - vagrant -c "source $VIRTUALENV_DIR/bin/activate && pip install -r $PROJECT_DIR/requirements.txt"
 
 # Heroku
 if ! command -v heroku ; then
+    echo "Installing Heroku toolbelt"
     wget -qO- https://toolbelt.heroku.com/install-ubuntu.sh | sh
 fi

@@ -1,3 +1,4 @@
 PROJECT_NAME=$(cat /home/vagrant/.project_name)
-echo "Project name is $PROJECT_NAME"
 workon $PROJECT_NAME
+
+alias runserver="cd ~/${PROJECT_NAME};python manage.py runserver 0.0.0.0:8080"
